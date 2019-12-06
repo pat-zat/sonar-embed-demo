@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/button';
 
 const MyButton = styled(Button)({
   background: 'linear-gradient(45deg, #f4511e 30%, #FF8E53 90%)',
