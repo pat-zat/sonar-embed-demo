@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="productDocumentSearchTable">
+            @(Html.Kendo() _
+            .Grid(Of tbProductDocs)() _
+            .Name("ProductDocumentGrid") _
+            .Resizable(Function(resize)
+            resize.Columns(True)
+            End Function) _
+            .Columns(Function(columns)
+                columns.Bound(Function(c) c.DocName).ClientTemplate("<a href=""" & Url.Action("ViewDocument", "ProductDocuments" ) & "/#=C_doc_row#"" target='_blank'><b>#=DocName#</b></a>" )
+                columns.Bound(Function(c) c.DocType).Filterable(Function(ftb)
+                
+                ftb.Multi(True)).ClientTemplate("#=DocType.toUpperCase()#") 'columns.Bound(Function(c) c.DocType)
+                           columns.Bound(Function(c) c.Descr).Title("Description").HeaderHtmlAttributes(New With {.class = "hidden-xs"}).HtmlAttributes(New With {.class = "hidden-xs"})
+                   columns.Bound(Function(c) c.FileDate).Format("{0: MM/dd/yyyy}").HeaderHtmlAttributes(New With {.class = "hidden-xs"}).HtmlAttributes(New With {.class = "hidden-xs"})
+                   columns.Bound(Function(c) c.GetItemList) 'columns.Bound(Function(c) c.tbitem).ClientTemplate("#=itemListTemplate(tbitem)#")
+
+
+ End Function) _
+              .Sortable() _
+              .Groupable() _
+              .ClientDetailTemplateId("DetailTemplate") _
+  .Pageable() _
+  .Filterable() _
+  .AutoBind(False) _
+  .Events(Function(events)
+              events.DataBound("onDataBound")
+              events.DataBinding("onDataBinding")
+          End Function) _
+       .DataSource(Function(dataSource) dataSource.Ajax().PageSize(20).Read(Function(read) read.Data("filterSettings").Action("ProductDocs_Read", "ProductDocuments"))))
+        </div>
+    </div>
+</div>
