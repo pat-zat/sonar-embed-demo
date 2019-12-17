@@ -17,6 +17,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import vid from './img/sonarMkt.mp4';
+import ButtonAppBar from './AppBar';
+import SierraLogoW from './img/Sierra-logo-wht.png';
+import SierraLogo from './img/sierra-logo.svg';
 import {
    // priceStockCode,
    // addToCartCode,
@@ -24,6 +27,7 @@ import {
     pickCode
   
 } from './codeStrings.js';
+
 
 
 //import $ from "jquery";
@@ -48,46 +52,6 @@ const code = `
     });
 }`;
 
-const addToCart = `
-    var AddManyToCartTrigger = function () {
-        $(".sonar-embed").trigger("SONAREmbed:AddManyToCart");
-   };
-   var AddOneToCartTrigger = function () {
-     $(".sonar-embed").trigger("SONAREmbed:AddOneToCart");
-`;
-
-const oneItemCode = `
-// Code to add one item to cart
-function AddOneItemToCart(pSku) {
-    // Your sku variable
-    var data = { "<Your_Custom_Object_Property_Name>": pSku };
-    $.ajax({
-        // Your url for your add one item to cart POST request
-        url: '</example/url/path/to/addOneItemToCart/functionality>',
-        type: 'POST',
-        data: $.param(data),
-        cache: false,
-        async: false,
-        success: function (result) {
-            // console.log("Item Added to Cart: " + result);
-            toastr.success('Item Added to Cart.');
-            AddOneToCartTrigger();
-            ga('sonarEmbed.send', {
-                hitType: 'event',
-                eventCategory: 'Cart',
-                eventAction: 'Item Added to Cart',
-                eventLabel: JSON.stringify({ "Item": pSku, "Sku": pSku })
-            });
-        }
-    });
-    return true;
-}
-`;
-
-
-
-
-
 
 
 
@@ -105,18 +69,15 @@ const App = () => {
 
     return (
         <div className="ui">
-
+            <ButtonAppBar></ButtonAppBar>
            
             
             <div className="ui container">
-            
+
+                
+
                 <Typography className="sectionTitle" variant="h1" component="h2">Summary &amp; Features</Typography>
-                <Typography className="summary bodypar" variant="body1">The Sonar-Embed is a user friendly JavaScript-driven read-only application. It allows customers to
-                    view information pertaining to items, engines, and diagrams found within our Sierra catalog.
-                    Price and stock message injection and shopping cart handoff functions are included and are
-                    customized to fit your needs. This document will provide you all the necessary code to get up
-                    and running as quickly and efficiently as possible. Containing all the required scripts and CSS
-                    links required for Sonar Embed to run properly within your application.
+                <Typography className="summary bodypar" variant="body1">Sonar-Embed by <span><img className="SierraLogo" src={ SierraLogo } /></span> is a user friendly JavaScript-driven read-only application. It seamlessly embeds our Sierra catalog into your eccommerce platform. Items, engines, and diagrams can be searched and added to your eccommerce cart. Price and stock message injection and shopping cart handoff functions are included and are customized to fit your needs. The following documentation will provide you all the necessary code to get up and running as quickly and efficiently as possible. Containing all the required scripts and CSS links required for Sonar Embed to run properly within your application.
                 </Typography>
 
                <div className="flexrow features">
@@ -183,10 +144,7 @@ const App = () => {
                                 <ListItemText secondary="The CustomerId provided for you when you signup" />
                             </ListItem>                 
                         </List>
-                        <CodeBlock language="javascript" codeString='$(document).ready(function () {
-                            InitializeSONAREmbed("production", "retail", "000000");
-                            }
-                        );'>
+                        <CodeBlock language="javascript" codeString='$(document).ready(function () { InitializeSONAREmbed("production", "retail", "000000"); });'>
                          </CodeBlock>
                     </div>
 
@@ -295,12 +253,7 @@ const App = () => {
                 <hr/>
 
                 <Typography className="subTitle" variant="h3" component="h3">Add pick list contents to cart</Typography>
-                <CodeBlock language="javascript" codeString='$(".sonar-embed").on("SONAREmbed:SearchBySierraResultsLoaded", function () 
-                    {
-                        console.log("Search Results Loaded");
-                        InjectPriceAndStock();
-                    });
-                    '>
+                <CodeBlock language="javascript" codeString={pickCode}>
                     </CodeBlock>
            
                 <hr/>
@@ -313,7 +266,7 @@ const App = () => {
 
                 
                                 
-                <div className="btn flexrow"><StyledComponents></StyledComponents></div>
+                {/* <div className="btn flexrow"><StyledComponents></StyledComponents></div> */}
                 
                 {/* <div className="tabRow flexrow"><IconTabs></IconTabs></div> */}
                 
